@@ -34,6 +34,18 @@ latest_dt = dates[0]# dt = day, time - this gets me the latest item from our lis
 # dynamically accessing latest data
 latest_close = tsd[latest_dt]["4. close"]
 
+
+
+# get high price from each day
+#high_prices = [10, 20, 30, 5]
+#recent_high = max(high_prices)#maximum of all high prices
+
+high_prices = []
+for date in dates:
+    high_price = tsd[latest_dt]["2. high"]
+    high_prices.append(float(high_price))
+recent_high = max(high_prices)
+
 # will need to update this (the second portion because this only shows at 1125 on 6.14)
 #breakpoint()
 # We are determing the different keys we need to process in python - time series daily - based on the day
@@ -45,7 +57,7 @@ print(f"REQUEST AT: {now}")
 print("-------------------------")
 print(f"LATEST DAY: {last_refreshed}")#string interprelation using format string
 print(f"LATEST CLOSE: {to_usd(float(latest_close))}")
-print("RECENT HIGH: $101,000.00")
+print(f"RECENT HIGH: {to_usd(float(recent_high))}")
 print("RECENT LOW: $99,000.00")
 print("-------------------------")
 print("RECOMMENDATION: BUY!")
