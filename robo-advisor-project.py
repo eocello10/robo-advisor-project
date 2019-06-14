@@ -6,8 +6,8 @@ import requests
 import json
 import datetime
 
-#def to_usd (my_price):
- #   return "{0:,.2f}".format(my_price)
+def to_usd (my_price):
+   return "${0:,.2f}".format(my_price)
 #
 #Info inputs
 #
@@ -27,9 +27,9 @@ parsed_response = json.loads(response.text)
 
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
 now = datetime.datetime.now()
-#latest_close = parsed_response["Time Series (5min)"]["2019-06-13 16:00:00"]["4. close"]
-
-breakpoint()
+latest_close = parsed_response["Time Series (5min)"]["2019-06-14 11:25:00"]["4. close"]
+# will need to update this (the second portion because this only shows at 1125 on 6.14)
+#breakpoint()
 # We are determing the different keys we need to process in python - time series daily - based on the day
 print("-------------------------")
 print("SELECTED SYMBOL: XYZ")
@@ -38,7 +38,7 @@ print("REQUESTING STOCK MARKET DATA...")
 print(f"REQUEST AT: {now}")
 print("-------------------------")
 print(f"LATEST DAY: {last_refreshed}")#string interprelation using format string
-print(f"LATEST CLOSE: {latest_close}")
+print(f"LATEST CLOSE: {to_usd(float(latest_close))}")
 print("RECENT HIGH: $101,000.00")
 print("RECENT LOW: $99,000.00")
 print("-------------------------")
