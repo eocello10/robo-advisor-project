@@ -27,7 +27,13 @@ parsed_response = json.loads(response.text)
 
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
 now = datetime.datetime.now()
-latest_close = parsed_response["Time Series (5min)"]["2019-06-14 11:25:00"]["4. close"]
+tsd = parsed_response["Time Series (5min)"]
+# assuming latest day is first
+dates = list(tsd.keys()) # TODO - sort to ensure latest day, time is first
+latest_dt = dates[0]# dt = day, time - this gets me the latest item from our list
+# dynamically accessing latest data
+latest_close = tsd[latest_dt]["4. close"]
+
 # will need to update this (the second portion because this only shows at 1125 on 6.14)
 #breakpoint()
 # We are determing the different keys we need to process in python - time series daily - based on the day
