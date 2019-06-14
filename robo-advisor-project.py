@@ -2,9 +2,17 @@
 
 # app/robo_advisor.py
 
-import requests
+
+import csv
 import json
+import os
+
+
+import requests
+
+
 import datetime
+
 
 def to_usd (my_price):
    return "${0:,.2f}".format(my_price)
@@ -51,9 +59,20 @@ for date in dates:
 recent_high = max(high_prices)
 recent_low = min(low_prices)
 
+
+
 # will need to update this (the second portion because this only shows at 1125 on 6.14)
 #breakpoint()
 # We are determing the different keys we need to process in python - time series daily - based on the day
+csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
+with open(csv_file_path, "w") as csv_file:
+    writer = csv.DictWriter(csv_file, fieldnames=["city", "name"])
+    writer.writerheader()
+    writer.writerow({"city": "New York", "name": "Yankees"})
+    writer.writerow({"city": "New York", "name": "Mets"})
+    writer.writerow({"city": "Boston", "name": "Red Sox"})
+    writer.writerow({"city": "New Haven", "name": "Ravens"})
+
 print("-------------------------")
 print("SELECTED SYMBOL: XYZ")
 print("-------------------------")
@@ -65,8 +84,16 @@ print(f"LATEST CLOSE: {to_usd(float(latest_close))}")
 print(f"RECENT HIGH: {to_usd(float(recent_high))}")
 print(f"RECENT LOW: {to_usd(float(recent_low))}")
 print("-------------------------")
-print("RECOMMENDATION: BUY!")
+print("RECOMMENDATION: BUY!")# need to design an algorithm to produce recommendation
 print("RECOMMENDATION REASON: TODO")
+print("-------------------------")
+print("Writing Data to CSV:{csv_file_path}")
 print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
+
+#csv_file_path = "data/prices.csv"
+
+
+
+# write a csv file into the data directory
