@@ -53,9 +53,10 @@ low_prices = []
 
 for date in dates:
     high_price = tsd[latest_dt]["2. high"]
-    high_prices.append(float(high_price))
     low_price = tsd[latest_dt]["3. low"]
+    high_prices.append(float(high_price))
     low_prices.append(float(low_price))
+
 recent_high = max(high_prices)
 recent_low = min(low_prices)
 
@@ -71,15 +72,18 @@ csv_headers = ["timestamp", "open", "high", "low", "close", "volume"]
 with open(csv_file_path, "w") as csv_file:
     writer = csv.DictWriter(csv_file, fieldnames=["city", "name"])
     writer.writeheader()
-    # looping to write each row
-    writer.writerow({
-        "timestamp": "TODO",
-        "open": "TODO",
-        "high": "TODO",
-        "low": "TODO",
-        "close": "TODO",
-        "volume": "TODO"})
-
+    #I think i have to create a prices.csv file?
+    for date in dates:
+        daily_prices = tsd[date]
+        writer.writerow({
+        "timestamp": date,
+        "open": daily_prices["1.open"],
+        "high": daily_prices["2. high"],
+        "low": daily_prices["3. low"],
+        "close": daily_prices["4. close"],
+        "volume": daily_prices["5. volume"]
+    })
+# looping to write each row
 print("-------------------------")
 print("SELECTED SYMBOL: XYZ")
 print("-------------------------")
