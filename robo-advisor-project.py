@@ -7,12 +7,13 @@ import csv
 import json
 import os
 
-
+from dotenv import load_dotenv
 import requests
-
 
 import datetime
 
+load_dotenv()
+# need to check with prof about dot_env issue
 
 def to_usd (my_price):
    return "${0:,.2f}".format(my_price)
@@ -20,7 +21,31 @@ def to_usd (my_price):
 #Info inputs
 #
 
-request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=demo"
+API_Key = os.environ.get("APLAADVANTAGE_API_KEY") # API KEY SHOULD BE READ FROM ENV FILE. NEED TO FIND
+# need to pip install python-dotenv
+
+ # TODO: ask user for this
+
+while True:
+    symbol = input("Please enter a stock symbol (i.e. AMZN):")
+    if symbol.lower() == "done": #Think I have to use elif
+        break
+
+if symbol.isdigit() == True:
+    print ('No Numbers can be entered')
+elif len(symbol) >5:
+    print('That symbol seems too long.')
+try:
+    parsed_response['Time Series (Daily)']
+except:
+    print('Looks like that is not a valid Stock Symbol. Please restart!')
+    print('Shutting program down...')
+    exit()
+
+# need to find a way to remove random sybols (i.e. ??)
+
+
+request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={API_Key}"
 response = requests.get(request_url) 
 #print(type(response))#<class 'requests.models.Response'>
 #print(response.status_code)#>200
@@ -35,7 +60,7 @@ parsed_response = json.loads(response.text)
 
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
 now = datetime.datetime.now()
-tsd = parsed_response["Time Series (5min)"]
+tsd = parsed_response["Time Series (Daily)"]
 # assuming latest day is first
 dates = list(tsd.keys()) # TODO - sort to ensure latest day, time is first
 latest_dt = dates[0]# dt = day, time - this gets me the latest item from our list
@@ -63,21 +88,21 @@ recent_low = min(low_prices)
 
 
 # will need to update this (the second portion because this only shows at 1125 on 6.14)
-#breakpoint()
+
 # We are determing the different keys we need to process in python - time series daily - based on the day
-csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
+csv_file_path = os.path.join(os.path.dirname(__file__), "data", "prices.csv")
 
 csv_headers = ["timestamp", "open", "high", "low", "close", "volume"]
-
+#breakpoint()
 with open(csv_file_path, "w") as csv_file:
-    writer = csv.DictWriter(csv_file, fieldnames=["city", "name"])
+    writer = csv.DictWriter(csv_file, fieldnames=csv_headers)
     writer.writeheader()
     #I think i have to create a prices.csv file?
     for date in dates:
         daily_prices = tsd[date]
         writer.writerow({
         "timestamp": date,
-        "open": daily_prices["1.open"],
+        "open": daily_prices["1. open"],
         "high": daily_prices["2. high"],
         "low": daily_prices["3. low"],
         "close": daily_prices["4. close"],
@@ -88,7 +113,7 @@ print("-------------------------")
 print("SELECTED SYMBOL: XYZ")
 print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
-print(f"REQUEST AT: {now}")
+print(f"REQUEST AT: {now}") # need to use format I used previosuly for time
 print("-------------------------")
 print(f"LATEST DAY: {last_refreshed}")#string interprelation using format string
 print(f"LATEST CLOSE: {to_usd(float(latest_close))}")
@@ -108,3 +133,10 @@ print("-------------------------")
 
 
 # write a csv file into the data directory
+
+#The selected stock symbol(s) (e.g. "Stock: MSFT") - Complete
+#The date and time when the program was executed, formatted in a human-friendly way (e.g. "Run at: 11:52pm on June 5th, 2018") - Complete
+#The date when the data was last refreshed, usually the same as the latest available day of daily trading data (e.g. "Latest Data from: June 4th, 2018") - Complete
+#For each stock symbol: its latest closing price, its recent high price, and its recent low price, calculated according to the instructions below, and formatted as currency with a dollar sign and two decimal places with a thousands separator as applicable (e.g. "Recent High: $1,234.56", etc.) - Complete
+#A recommendation as to whether or not the client should buy the stock (see guidance below), and optionally what quantity to purchase. The nature of the recommendation for each symbol can be binary (e.g. "Buy" or "No Buy"), qualitative (e.g. a "Low", "Medium", or "High" level of confidence), or quantitative (i.e. some numeric rating scale).
+#A recommendation explanation, describing in a human-friendly way the reason why the program produced the recommendation it did (e.g. "because the stock's latest closing price exceeds threshold XYZ, etc...")
