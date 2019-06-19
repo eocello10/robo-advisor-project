@@ -28,30 +28,32 @@ API_Key = os.environ.get("APLAADVANTAGE_API_KEY") # API KEY SHOULD BE READ FROM 
 
 while True:
     symbol = input("Please enter a stock symbol (i.e. AMZN):")
-    if symbol.lower() == "done": #Think I have to use elif
+    if symbol.isdigit() == True:
+        print ('No Numbers can be entered')
+    elif len(symbol) >5:
+        print('That symbol seems too long.')
+    else:
+        request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={API_Key}"
+        response = requests.get(request_url)
         break
 
-if symbol.isdigit() == True:
-    print ('No Numbers can be entered')
-elif len(symbol) >5:
-    print('That symbol seems too long.')
+parsed_response = json.loads(response.text)
 try:
     parsed_response['Time Series (Daily)']
 except:
     print('Looks like that is not a valid Stock Symbol. Please restart!')
     print('Shutting program down...')
     exit()
-
+# ask about how this code works
 # need to find a way to remove random sybols (i.e. ??)
 
 
-request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={API_Key}"
-response = requests.get(request_url) 
+ 
 #print(type(response))#<class 'requests.models.Response'>
 #print(response.status_code)#>200
 #print(response.text)#
 
-parsed_response = json.loads(response.text)
+
 
 
 # need to go to alpha key documents and get the url above for json file
@@ -110,10 +112,10 @@ with open(csv_file_path, "w") as csv_file:
     })
 # looping to write each row
 print("-------------------------")
-print("SELECTED SYMBOL: XYZ")
+print("SELECTED SYMBOL: " + symbol.upper())
 print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
-print(f"REQUEST AT: {now}") # need to use format I used previosuly for time
+print(f"REQUEST AT: {now.strftime('%b %d %Y %I:%M %p')}") # need to use format I used previosuly for time
 print("-------------------------")
 print(f"LATEST DAY: {last_refreshed}")#string interprelation using format string
 print(f"LATEST CLOSE: {to_usd(float(latest_close))}")
