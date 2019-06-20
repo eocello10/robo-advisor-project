@@ -142,7 +142,12 @@ if x >recent_low*1.2:
 else:
     print("RECOMMENDATION: SELL!")
 # need to design an algorithm to produce recommendation
-print("RECOMMENDATION REASON: TODO") #TODO - update recommendation
+
+y = float(latest_close) 
+if y >recent_low*1.2:
+    print("RECOMMENDATION: This price is to low to pass up! It is a great opportunity! As Kramer would say Buy!Buy!Buy!")
+else:
+    print("RECOMMENDATION: This price is just high enough you can make some money!s Kramer would say Sell!Sell!Sell!")
 print("-------------------------")
 print("Writing Data to CSV:{csv_file_path}")
 print("-------------------------")
