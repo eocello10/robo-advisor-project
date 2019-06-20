@@ -9,7 +9,7 @@ import os
 
 from dotenv import load_dotenv
 import requests
-
+import pandas as pd
 import datetime
 
 load_dotenv()
@@ -47,8 +47,10 @@ except:
 # ask about how this code works
 # need to find a way to remove random sybols (i.e. ??)
 
+#RECOMMENDATION
 
- 
+
+
 #print(type(response))#<class 'requests.models.Response'>
 #print(response.status_code)#>200
 #print(response.text)#
@@ -60,7 +62,17 @@ except:
 
 #using parsed_response you can find keys on specific attributes or entire list. This just finds the different values/results.
 
-last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
+last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"] # convert to a date time value
+if ":" in last_refreshed:
+    last_refreshed = pd.to_datetime(last_refreshed)
+    Human_friednly_date = last_refreshed.strftime('%b %d %Y %I:%M %p')
+else:
+    Human_friednly_date = last_refreshed
+#print(type(last_refreshed))
+
+
+#Last_refreshed_datetime = datetime.datetime.()
+#TODO - UPDATE FORMATTING OF LAST_REFRESHED TIME
 now = datetime.datetime.now()
 tsd = parsed_response["Time Series (Daily)"]
 # assuming latest day is first
@@ -111,19 +123,26 @@ with open(csv_file_path, "w") as csv_file:
         "volume": daily_prices["5. volume"]
     })
 # looping to write each row
+
+
 print("-------------------------")
 print("SELECTED SYMBOL: " + symbol.upper())
 print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
 print(f"REQUEST AT: {now.strftime('%b %d %Y %I:%M %p')}") # need to use format I used previosuly for time
 print("-------------------------")
-print(f"LATEST DAY: {last_refreshed}")#string interprelation using format string
+print(f"LATEST DAY: " + Human_friednly_date)#string interprelation using format string
 print(f"LATEST CLOSE: {to_usd(float(latest_close))}")
 print(f"RECENT HIGH: {to_usd(float(recent_high))}")
 print(f"RECENT LOW: {to_usd(float(recent_low))}")
 print("-------------------------")
-print("RECOMMENDATION: BUY!")# need to design an algorithm to produce recommendation
-print("RECOMMENDATION REASON: TODO")
+x = float(latest_close) 
+if x >recent_low*1.2:
+    print("RECOMMENDATION: BUY!")
+else:
+    print("RECOMMENDATION: SELL!")
+# need to design an algorithm to produce recommendation
+print("RECOMMENDATION REASON: TODO") #TODO - update recommendation
 print("-------------------------")
 print("Writing Data to CSV:{csv_file_path}")
 print("-------------------------")
