@@ -76,7 +76,7 @@ else:
 #Last_refreshed_datetime = datetime.datetime.()
 
 now = datetime.datetime.now()
-c
+tsd = parsed_response["Time Series (Daily)"]
 # assuming latest day is first
 dates = list(tsd.keys()) 
 latest_dt = dates[0]# dt = day, time - this gets me the latest item from our list
@@ -149,7 +149,7 @@ y = float(latest_close)
 if y >recent_low*1.2:
     print("RECOMMENDATION REASON: This price is to low to pass up! It is a great opportunity! As Kramer would say Buy!Buy!Buy!")
 else:
-    print("RECOMMENDATION REASON: This price is just high enough you can make some money!s Kramer would say Sell!Sell!Sell!")
+    print("RECOMMENDATION REASON: This price is just high enough you can make some money! As Kramer would say Sell!Sell!Sell!")
 # Used same algorithm so that recommendation to Buy goes with recommendation reason for buying and same for selling
 print("-------------------------")
 print("Writing Data to CSV:{csv_file_path}")
