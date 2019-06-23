@@ -74,7 +74,7 @@ python-dotenv
 # Parsed Response:
     parsed_response = json.loads(response.text)
 - First, start with latest_refershed. You can create a breakpoint (breakpoint()) in your code to allow you to begin to search for the keys from the url.
-- to seacrh for the information type in python robo-advisor-project.py. then parsed_response.keys. You will find two: Meta Data and Time Series (5 Min)
+- to search for the information type in python robo-advisor-project.py. then parsed_response.keys. You will find two: Meta Data and Time Series (5 Min)
 - Next step is to find the keys for the Meta Data key. Once you find this you will see the last refreshed is item 3. Use the code below
     - last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
     - Update print function like this - print(f"LATEST DAY: {last_refreshed}")
@@ -85,7 +85,7 @@ python-dotenv
         - latest_close = tsd[latest_dt]["4. close"]
     - Then update your print statement
         - print(f"LATEST CLOSE: {to_usd(float(latest_close))}")
-        - To format (to_usd) us the def function below
+        - To format price (to_usd) us the def function below
             - def to_usd (my_price):
                 return "${0:,.2f}".format(my_price)
     - To handle the recent low/recent high code we must use the below:
@@ -97,8 +97,8 @@ python-dotenv
             - high_prices.append(float(high_price))
             - low_prices.append(float(low_price))
 
-recent_high = max(high_prices)
-recent_low = min(low_prices)
+- recent_high = max(high_prices)
+- recent_low = min(low_prices)
 - Third, we can update the datetime to print whatever it is now when we requested:
     - now = datetime.datetime.now()
     - and print(f"REQUEST AT: {now}")
