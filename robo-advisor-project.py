@@ -139,17 +139,17 @@ print(f"RECENT HIGH: {to_usd(float(recent_high))}")
 print(f"RECENT LOW: {to_usd(float(recent_low))}")
 print("-------------------------")
 x = float(latest_close) 
-if x >recent_low*1.2:
+if x <recent_low*1.2:
     print("RECOMMENDATION: BUY!")
 else:
     print("RECOMMENDATION: SELL!")
 # Algorithm states that if the latest close(had to convert to float in order to make sure syntax with recent_low was same.So used a greater than algorithm to show that if X is greater print buy if not, print sell
 
 y = float(latest_close) 
-if y >recent_low*1.2:
-    print("RECOMMENDATION REASON: This price is to low to pass up! It is a great opportunity! As Kramer would say Buy!Buy!Buy!")
+if y <recent_low*1.2:
+    print("RECOMMENDATION REASON: This stocks latest close price is less than 20 percent below its recent low. It is a great opportunity! As Kramer would say Buy!Buy!Buy!")
 else:
-    print("RECOMMENDATION REASON: This price is just high enough you can make some money! As Kramer would say Sell!Sell!Sell!")
+    print("RECOMMENDATION REASON: This stocks latest close is greater than 20 percent its recent low. Go make some money and as Kramer would say Sell!Sell!Sell!")
 # Used same algorithm so that recommendation to Buy goes with recommendation reason for buying and same for selling
 print("-------------------------")
 print("Writing Data to CSV:{csv_file_path}")

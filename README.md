@@ -4,35 +4,34 @@
 - Input the below in your robo-advisor-project.py file:
     - app/robo_advisor.py
 
-- print("-------------------------")
-- print("SELECTED SYMBOL: XYZ")
-- print("-------------------------")
-- print("REQUESTING STOCK MARKET DATA...")
-- print("REQUEST AT: 2018-02-20 02:00pm")
-- print("-------------------------")
-- print("LATEST DAY: 2018-02-20")
-- print("LATEST CLOSE: $100,000.00")
-- print("RECENT HIGH: $101,000.00")
-- print("RECENT LOW: $99,000.00")
-- print("-------------------------")
-- print("RECOMMENDATION: BUY!")
-- print("RECOMMENDATION REASON: TODO")
-- print("-------------------------")
-- print("HAPPY INVESTING!")
-- print("-------------------------")
+    - print("-------------------------")
+    - print("SELECTED SYMBOL: XYZ")
+    - print("-------------------------")
+    - print("REQUESTING STOCK MARKET DATA...")
+    - print("REQUEST AT: 2018-02-20 02:00pm")
+    - print("-------------------------")
+    - print("LATEST DAY: 2018-02-20")
+    - print("LATEST CLOSE: $100,000.00")
+    - print("RECENT HIGH: $101,000.00")
+    - print("RECENT LOW: $99,000.00")
+    - print("-------------------------")
+    - print("RECOMMENDATION: BUY!")
+    - print("RECOMMENDATION REASON: TODO")
+    - print("-------------------------")
+    - print("HAPPY INVESTING!")
+    - print("-------------------------")
 
 - User your text editor to create a requirements.txt file. Inpuy the below in there:
 requests
 python-dotenv
 
-#Environment Setup
+# Environment Setup
 - Create and activate a new Anaconda virtual environment:
     - conda create -n stocks-env python=3.7 # (first time only)
     - conda activate stocks-env
 - From within the virtual environment, install the required packages specified in the "requirements.txt" file you created:
-
-- pip install -r requirements.txt
-- pip install pytest # (only if you'll be writing tests)
+    - pip install -r requirements.txt
+    - pip install pytest # (only if you'll be writing tests)
 - From within the virtual environment, demonstrate your ability to run the Python script from the command-line to check if your code is working properly:
 - Create an env file to house API_key - ENV file allows you to secure your API Key and let's it be used to invoke the request
 - Run python robo_advisor.py
@@ -134,36 +133,36 @@ recent_low = min(low_prices)
 # Print Input
 
 - The code below reflects what we print
-    print("-------------------------")
-    print("SELECTED SYMBOL: " + symbol.upper())# Put upper in order to make all symbols reflect as upper
-    print("-------------------------")
-    print("REQUESTING STOCK MARKET DATA...")
-    print(f"REQUEST AT: {now.strftime('%b %d %Y %I:%M %p')}") # formatted date
+    - print("-------------------------")
+    - print("SELECTED SYMBOL: " + symbol.upper())# Put upper in order to make all symbols reflect as upper
+    - print("-------------------------")
+    - print("REQUESTING STOCK MARKET DATA...")
+    - print(f"REQUEST AT: {now.strftime('%b %d %Y %I:%M %p')}") # formatted date
      - Code/explanation highlighted above under Parsed Response 
-    print("-------------------------")
-    print(f"LATEST DAY: " + Human_friendly_date)#string interprelation using format string
+    - print("-------------------------")
+    - print(f"LATEST DAY: " + Human_friendly_date)#string interprelation using format string
      - Code/explanation highlighted above under Parsed Response
-    print(f"LATEST CLOSE: {to_usd(float(latest_close))}") 
-    print(f"RECENT HIGH: {to_usd(float(recent_high))}")
-    print(f"RECENT LOW: {to_usd(float(recent_low))}")
-     - Code/explanation for latest close, recent high, recent low highlighted above under Parsed Response
-    print("-------------------------")
+    - print(f"LATEST CLOSE: {to_usd(float(latest_close))}") 
+    - print(f"RECENT HIGH: {to_usd(float(recent_high))}")
+    - print(f"RECENT LOW: {to_usd(float(recent_low))}")
+    - Code/explanation for latest close, recent high, recent low highlighted above under Parsed Response
+    - print("-------------------------")
   - Recommendation algorithim
     -  algorithm states that if the latest close is greater than 1.2 multipled byt the recent low we should recommened to buy, if not to sell. I used the same algorithm in order to print the recommendation reason. (had to convert to float in order to make sure syntax with recent_low was same)
-        x = float(latest_close) 
-        if x >recent_low*1.2:
-            print("RECOMMENDATION: BUY!")
-        else:
-            print("RECOMMENDATION: SELL!")
-        y = float(latest_close) 
-        if y >recent_low*1.2:
-            print("RECOMMENDATION REASON: This price is to low to pass up! It is a great opportunity! As Kramer would say Buy!Buy!Buy!")
-        else:
-            print("RECOMMENDATION REASON: This price is just high enough you can make some money!s Kramer would say Sell!Sell!Sell!")
+        - x = float(latest_close) 
+        - if x < recent_low*1.2:
+        -     print("RECOMMENDATION: BUY!")
+        - else:
+        -     print("RECOMMENDATION: SELL!")
+        - y = float(latest_close) 
+        - if y < recent_low*1.2:
+        -     print("RECOMMENDATION REASON: This stocks latest close price is less than 20 percent below its recent low. It is a great opportunity! As Kramer would say Buy!Buy!Buy!")
+        - else:
+        -     print("RECOMMENDATION REASON: This stocks latest close is greater than 20 percent its recent low. Go make some money and as Kramer would say Sell!Sell!Sell!")
   - The final step is to write the data to the CSV. That is what the below states and what is performed under CSV above 
-        print("-------------------------")
-        print("Writing Data to CSV:{csv_file_path}")
-        print("-------------------------")
-        print("HAPPY INVESTING!")
-        print("-------------------------")
+        - print("-------------------------")
+        - print("Writing Data to CSV:{csv_file_path}")
+        - print("-------------------------")
+        - print("HAPPY INVESTING!")
+        - print("-------------------------")
 
