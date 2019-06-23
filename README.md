@@ -1,8 +1,8 @@
 # robo-advisor-project
 Work to pull/suggest stocks to invest in for the end user
 
--Input the below in your robo-advisor-project.py file:
-# app/robo_advisor.py
+- Input the below in your robo-advisor-project.py file:
+    - app/robo_advisor.py
 
 print("-------------------------")
 print("SELECTED SYMBOL: XYZ")
@@ -20,7 +20,6 @@ print("RECOMMENDATION REASON: TODO")
 print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
-
 
 - User your text editor to create a requirements.txt file. Inpuy the below in there:
 requests
