@@ -34,7 +34,7 @@ python-dotenv
 - pip install -r requirements.txt
 - pip install pytest # (only if you'll be writing tests)
 - From within the virtual environment, demonstrate your ability to run the Python script from the command-line to check if your code is working properly:
-
+- Create an env file to house API_key - ENV file allows you to secure your API Key and let's it be used to invoke the request
 - Run python robo_advisor.py
 
 # Requirements
