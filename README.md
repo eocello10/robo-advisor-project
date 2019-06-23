@@ -89,13 +89,13 @@ python-dotenv
             - def to_usd (my_price):
                 return "${0:,.2f}".format(my_price)
     - To handle the recent low/recent high code we must use the below:
-        high_prices = []
-        low_prices = []
-        for date in dates:
-            high_price = tsd[latest_dt]["2. high"]
-            low_price = tsd[latest_dt]["3. low"]
-            high_prices.append(float(high_price))
-            low_prices.append(float(low_price))
+        - high_prices = []
+        - low_prices = []
+        - for date in dates:
+            - high_price = tsd[latest_dt]["2. high"]
+            - low_price = tsd[latest_dt]["3. low"]
+            - high_prices.append(float(high_price))
+            - low_prices.append(float(low_price))
 
 recent_high = max(high_prices)
 recent_low = min(low_prices)
@@ -159,7 +159,7 @@ recent_low = min(low_prices)
         -     print("RECOMMENDATION REASON: This stocks latest close price is less than 20 percent below its recent low. It is a great opportunity! As Kramer would say Buy!Buy!Buy!")
         - else:
         -     print("RECOMMENDATION REASON: This stocks latest close is greater than 20 percent its recent low. Go make some money and as Kramer would say Sell!Sell!Sell!")
-  - The final step is to write the data to the CSV. That is what the below states and what is performed under CSV above 
+  - The final step is to write the data to the CSV. That is what the below states and what is performed under CSV above: 
         - print("-------------------------")
         - print("Writing Data to CSV:{csv_file_path}")
         - print("-------------------------")
